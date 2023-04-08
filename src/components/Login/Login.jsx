@@ -5,7 +5,10 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+import { Helmet } from "react-helmet";
+
+const Login = ({saveUser}) => {
+
   const [isLoading, setisLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   let navigate = useNavigate();
@@ -21,9 +24,11 @@ const Login = () => {
         setisLoading(false);
         setErrorMessage(err.response.data.message);
       });
-    console.log(data);
+    // console.log(data);
     if (data.message == "success") {
       setisLoading(false);
+      localStorage.setItem("userToken", data.token)
+      saveUser()
       navigate("/");
     }
   }
@@ -77,6 +82,10 @@ const Login = () => {
   });
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login</title>
+      </Helmet>
       <div className="container my-5">
         <div className="w-75 mx-auto">
           <h3>Login : </h3>
@@ -122,11 +131,11 @@ const Login = () => {
             )}
 
             {isLoading ? (
-              <button className="btn btn-success">
+              <button className="btn bg-main">
                 <i className="fa fa-spin fa-spinner"></i>
               </button>
             ) : (
-              <button className="btn btn-success">Login</button>
+              <button className="btn bg-main">Login</button>
             )}
           </form>
         </div>

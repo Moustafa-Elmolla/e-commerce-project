@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 
 const Register = () => {
   const [isLoading, setisLoading] = useState(false);
@@ -30,7 +32,7 @@ const Register = () => {
     }
   }
 
-  let mySchema = Yup.object({
+  let validationSchema = Yup.object({
     name: Yup.string()
       .required("name is Required")
       .min(3, "min char is 3")
@@ -87,11 +89,15 @@ const Register = () => {
       rePassword: "",
       phone: "",
     },
-    validationSchema: mySchema,
+    validationSchema,
     onSubmit: (values) => register(values),
   });
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register</title>
+      </Helmet>
       <div className="container my-5">
         <div className="w-75 mx-auto">
           <h3>Register : </h3>
@@ -185,11 +191,11 @@ const Register = () => {
             )}
 
             {isLoading ? (
-              <button className="btn btn-success">
+              <button className="btn bg-main">
                 <i className="fa fa-spin fa-spinner"></i>
               </button>
             ) : (
-              <button className="btn btn-success">Register</button>
+              <button disabled= {!(formik.isValid && formik.dirty)} className="btn bg-main">Register</button>
             )}
           </form>
         </div>
