@@ -3,6 +3,7 @@ import styles from "./Cart.module.css";
 import { CartContext } from "../../Context/CartContext";
 import { Offline, Online } from "react-detect-offline";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cartDetails, setCartDetails] = useState({});
@@ -114,6 +115,7 @@ const Cart = () => {
                     </div>
                   </div>
                 ))}
+                <Link to={'/checkout'} className="btn bg-main text-white mt-4">Procceed To Payment</Link>
               </div>
             </div>
           )}

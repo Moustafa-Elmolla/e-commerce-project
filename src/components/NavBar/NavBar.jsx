@@ -2,9 +2,12 @@ import React from 'react';
 import styles from './NavBar.module.css'
 import logo from '../../assets/images/freshcart-logo.svg'
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../../Context/CartContext';
 
 
 const NavBar = ({userData, logOut}) => {
+  let {numOfCartItems} = useContext(CartContext)
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-secondary navbar-dark">
@@ -25,9 +28,7 @@ const NavBar = ({userData, logOut}) => {
         <li className="nav-item">
           <Link className="nav-link" to='products'>products</Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to= 'cart'>cart</Link>
-        </li>
+        
       </ul>}
       
 
@@ -44,9 +45,17 @@ const NavBar = ({userData, logOut}) => {
       </ul>
 
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-      {userData ? <li className="nav-item">
+      {userData ? <>
+        <li className="nav-item">
           <span className="nav-link cursor-pointer" onClick={logOut}>LogOut</span>
-        </li> : <>
+        </li>
+        <li className="nav-item position-relative">
+          <Link className="nav-link" to= 'cart'>
+            <i className='fa fa-shopping-cart fa-lg'></i>
+            <div className="badge bg-main position-absolute top-0 end-0">{numOfCartItems}</div>
+          </Link>
+        </li>
+      </> : <>
         <li className="nav-item">
           <Link className="nav-link" to='login'>Login</Link>
         </li>

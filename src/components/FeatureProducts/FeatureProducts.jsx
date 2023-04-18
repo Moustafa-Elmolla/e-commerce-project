@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 
 const FeatureProducts = () => {
 
-  let {creatCart} = useContext(CartContext)
+  let {creatCart, setNumOfCartItems} = useContext(CartContext)
 
   const [allProducts, setallProducts] = useState([]);
   const [isloading, setIsloading] = useState(false);
@@ -34,6 +34,7 @@ const FeatureProducts = () => {
           color: "white"
         }
       })
+      setNumOfCartItems(response.data.numOfCartItems)
     }else {
       toast.error(response.data.message ,{
         position: "bottom-right",
@@ -54,7 +55,8 @@ const FeatureProducts = () => {
     <div className="container py-4">
     <div className="row">
       {allProducts.map((product) => <div key={product._id} className="col-md-2">
-        <div className="product px-2 py-3">
+        <div className="product px-2 py-3 position-relative">
+          <button className='btn bg-transparent position-absolute top-0 end-0'><i className="fa-regular fa-heart fa-lg"></i></button>
           <Link to={`/productdetails/${product._id}`}>
           <img src={product.imageCover} className='w-100' alt="" />
           <p className='text-main'>{product.category.name}</p>

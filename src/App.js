@@ -15,6 +15,8 @@ import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 import CounterContextProvider from './Context/CounterContext';
 import CartContextProvider from './Context/CartContext';
 import { Toaster } from 'react-hot-toast';
+import Checkout from './components/Checkout/Checkout';
+import AllOrders from './components/AllOrders/AllOrders'
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
       {path: 'register', element: <Register />},
       {path: 'cart', element: <ProtectedRoutes><Cart /></ProtectedRoutes>},
       {path: 'products', element: <ProtectedRoutes><Products /></ProtectedRoutes>},
+      {path: 'checkout', element: <ProtectedRoutes><Checkout /></ProtectedRoutes>},
+      {path: 'allorders', element: <ProtectedRoutes><AllOrders /></ProtectedRoutes>},
       {path: 'productdetails/:id', element: <ProtectedRoutes><ProductDetails /></ProtectedRoutes>},
     
       {path: '*', element: <NotFound />},
